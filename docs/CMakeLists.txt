@@ -13,12 +13,12 @@ IF(BUILD_DOCUMENTATION)
 
   configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT} @ONLY)
 
-  get_target_property(prtest2_PUBLIC_HEADER_DIR prtest2 INTERFACE_INCLUDE_DIRECTORIES)
-  file(GLOB_RECURSE prtest2_PUBLIC_HEADERS ${prtest2_PUBLIC_HEADER_DIR}/*.h)
+  get_target_property(ELECTIONGUARD_PUBLIC_HEADER_DIR electionguard INTERFACE_INCLUDE_DIRECTORIES)
+  file(GLOB_RECURSE ELECTIONGUARD_PUBLIC_HEADERS ${ELECTIONGUARD_PUBLIC_HEADER_DIR}/*.h)
 
   add_custom_command(
       OUTPUT ${DOXYGEN_INDEX_FILE}
-      DEPENDS ${prtest2_PUBLIC_HEADERS}
+      DEPENDS ${ELECTIONGUARD_PUBLIC_HEADERS}
       COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
       MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
       COMMENT "Generating doxygen XML"
@@ -31,12 +31,12 @@ IF(BUILD_DOCUMENTATION)
   set(SPHINX_CACHE ${CMAKE_CURRENT_BINARY_DIR}/_doctrees)
   set(SPHINX_INDEX_FILE ${SPHINX_BUILD}/index.html)
 
-  set(prtest2_RST
+  set(ELECTIONGUARD_RST
       ${PROJECT_SOURCE_DIR}/README.rst
-      ${PROJECT_SOURCE_DIR}/include/prtest2/README.rst
-      ${PROJECT_SOURCE_DIR}/include/prtest2/keyceremony/README.rst
-      ${PROJECT_SOURCE_DIR}/include/prtest2/voting/README.rst
-      ${PROJECT_SOURCE_DIR}/include/prtest2/decryption/README.rst
+      ${PROJECT_SOURCE_DIR}/include/electionguard/README.rst
+      ${PROJECT_SOURCE_DIR}/include/electionguard/keyceremony/README.rst
+      ${PROJECT_SOURCE_DIR}/include/electionguard/voting/README.rst
+      ${PROJECT_SOURCE_DIR}/include/electionguard/decryption/README.rst
       ${CMAKE_CURRENT_SOURCE_DIR}/index.rst
       ${CMAKE_CURRENT_SOURCE_DIR}/examples.rst
       ${CMAKE_CURRENT_SOURCE_DIR}/voting.rst
@@ -62,12 +62,12 @@ IF(BUILD_DOCUMENTATION)
   add_custom_command(
     OUTPUT ${SPHINX_INDEX_FILE}
     COMMAND ${SPHINX_EXECUTABLE} -b html
-      -Dbreathe_projects.prtest2SDK=${DOXYGEN_OUTPUT_DIR}/xml
+      -Dbreathe_projects.ElectionGuardSDK=${DOXYGEN_OUTPUT_DIR}/xml
       -d ${SPHINX_CACHE}
       ${SPHINX_SOURCE} ${SPHINX_BUILD}
       WORKING_DIRECTORY ${SPHINX_SOURCE}
     MAIN_DEPENDENCY ${SPHINX_SOURCE}/conf.py
-    DEPENDS ${prtest2_RST} ${DOXYGEN_INDEX_FILE}
+    DEPENDS ${ELECTIONGUARD_RST} ${DOXYGEN_INDEX_FILE}
     COMMENT "Generating HTML documentation"
   )
 
