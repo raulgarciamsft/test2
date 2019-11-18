@@ -75,17 +75,17 @@ install(
 
 add_subdirectory(docs)
 
-#file(MAKE_DIRECTORY  "${CMAKE_CURRENT_BINARY_DIR}/simple_build")
-#set(CMAKE_CONFIGURATION_TYPES "Debug" CACHE STRING "" FORCE)
+file(MAKE_DIRECTORY  "${CMAKE_CURRENT_BINARY_DIR}/simple_build")
+set(CMAKE_CONFIGURATION_TYPES "Debug" CACHE STRING "" FORCE)
 
-#add_test(NAME build_simple
-#   COMMAND "${CMAKE_COMMAND}"
-#      -E env test2_DIR=${CMAKE_CURRENT_BINARY_DIR}/test2
-#      "${CMAKE_CTEST_COMMAND}"
-#        --build-and-test "${PROJECT_SOURCE_DIR}/examples/simple" "${CMAKE_CURRENT_BINARY_DIR}/simple_build"
-#        --build-generator ${CMAKE_GENERATOR}
-#        --test-command simple
-#)
+add_test(NAME build_simple
+   COMMAND "${CMAKE_COMMAND}"
+      -E env test2_DIR=${CMAKE_CURRENT_BINARY_DIR}/test2
+      "${CMAKE_CTEST_COMMAND}"
+        --build-and-test "${PROJECT_SOURCE_DIR}/examples/simple" "${CMAKE_CURRENT_BINARY_DIR}/simple_build"
+        --build-generator ${CMAKE_GENERATOR}
+        --test-command simple
+)
 
 include(CheckIncludeFiles)
 #check_include_files("windows.h" HAVE_BCRYPTGENRANDOM)
