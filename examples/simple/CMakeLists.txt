@@ -14,11 +14,27 @@ set(CMAKE_MODULE_PATH
 )
 
 add_executable(simple
-    ${PROJECT_SOURCE_DIR}/simple.c
+    ${PROJECT_SOURCE_DIR}/main.c
 )
 
 
 find_package(test2 REQUIRED)
+
+find_package(GMP REQUIRED)
+message(STATUS "GMP library found.")
+message(STATUS "GMP include dir is: ${GMP_INCLUDE_DIR}")
+message(STATUS "GMP library is: ${GMP_LIBRARY}")
+
+if(APPLE)
+    target_link_libraries(simple test2 ${GMP_LIBRARY})
+else()
+    target_link_libraries(simple test2 gmp)
+endif()
+
+
+if (WIN32)
+    target_link_libraries(simple Bcrypt)
+endif (WIN32)
 
 add_test(NAME simple COMMAND simple)
 
