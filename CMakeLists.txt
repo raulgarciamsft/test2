@@ -49,7 +49,7 @@ target_include_directories(test2
 
 # Install the test2 library in the default location, and associate
 # test2 with the test2 export
-install(TARGETS test2 EXPORT Test2)
+install(TARGETS test2 EXPORT test2)
 
 # Install public header files
 install(
@@ -58,19 +58,19 @@ install(
     FILES_MATCHING PATTERN "*.h*"
 )
 
-# Generate the build-tree Test2Config.cmake for use in other cmake
+# Generate the build-tree test2Config.cmake for use in other cmake
 # projects without needing to install
 export(
-    EXPORT Test2
-    FILE "${CMAKE_CURRENT_BINARY_DIR}/Test2/Test2Config.cmake"
+    EXPORT test2
+    FILE "${CMAKE_CURRENT_BINARY_DIR}/test2/test2Config.cmake"
 )
 
-# Generate the install-tree Test2Config.cmake for use in other cmake
+# Generate the install-tree test2Config.cmake for use in other cmake
 # projects after this library has been installed
 install(
-    EXPORT Test2
-    FILE Test2Config.cmake
-    DESTINATION lib/cmake/Test2
+    EXPORT test2
+    FILE test2Config.cmake
+    DESTINATION lib/cmake/test2
 )
 
 add_subdirectory(docs)
