@@ -1,6 +1,6 @@
 { stdenv, nix-gitignore, cmake, doxygen, pythonPackages }:
 stdenv.mkDerivation {
-  pname = "test-2";
+  pname = "test2";
   version = "0.0.1";
 
   nativeBuildInputs = with pythonPackages; [ cmake doxygen sphinx breathe ];

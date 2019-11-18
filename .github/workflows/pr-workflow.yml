@@ -24,9 +24,9 @@ jobs:
         cmake --build build
     - name: 'Build Simple'
       run: | 
-        Test2_DIR="$PWD/build/Test2" cmake -S examples/simple -B simple_build
+        test2_DIR="$PWD/build/test2" cmake -S examples/simple -B simple_build
         cmake --build simple_build --target simple
-    - name: 'Test Simple'
+    - name: 'test Simple'
       run: | 
         cd simple_build
         ./simple
@@ -57,10 +57,10 @@ jobs:
         cmake --build build
     - name: 'Build Simple'
       run: |
-        $env:CMAKE_PREFIX_PATH="./build/Test2"
+        $env:CMAKE_PREFIX_PATH="./build/test2"
         cmake -S examples/simple -B simple_build -G "MSYS Makefiles"
         cmake --build simple_build --target simple
-    - name: 'Test Simple'
+    - name: 'test Simple'
       run: | 
         cd simple_build
         $outcome = Invoke-Expression ".\simple.exe"
@@ -84,9 +84,9 @@ jobs:
         cmake --build build
     - name: 'Build Simple'
       run: | 
-        ElectionGuard_DIR="$PWD/build/Test2" cmake -S examples/simple -B simple_build
+        ElectionGuard_DIR="$PWD/build/test2" cmake -S examples/simple -B simple_build
         cmake --build simple_build --target simple
-    - name: 'Test Simple'
+    - name: 'test Simple'
       run: | 
         cd simple_build
         ./simple

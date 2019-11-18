@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-project("Test2 Simple Example Client" VERSION 0.0.1 LANGUAGES C)
+project("test2 Simple Example Client" VERSION 0.0.1 LANGUAGES C)
 
 enable_testing()
 
@@ -18,7 +18,7 @@ add_executable(simple
 )
 
 
-find_package(Test2 REQUIRED)
+find_package(test2 REQUIRED)
 
 find_package(GMP REQUIRED)
 message(STATUS "GMP library found.")
