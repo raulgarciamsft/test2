@@ -87,7 +87,6 @@ add_subdirectory(docs)
 #        --test-command simple
 #)
 
-
 include(CheckIncludeFiles)
 #check_include_files("windows.h" HAVE_BCRYPTGENRANDOM)
 #configure_file(${PROJECT_SOURCE_DIR}/src/test2/random_source.h.in ${PROJECT_SOURCE_DIR}/src/electionguard/random_source.h)
