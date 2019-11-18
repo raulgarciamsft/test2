@@ -1,4 +1,4 @@
-#include <test2/test2a.h>
+#include <test2/Test2a.h>
 
 int test2()
 {
