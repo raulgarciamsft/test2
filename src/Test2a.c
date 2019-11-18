@@ -1,5 +1,6 @@
 #include <test2/Test2a.h>
 #include <stdio.h>
+#include <string.h>
 
 int test2()
 {
