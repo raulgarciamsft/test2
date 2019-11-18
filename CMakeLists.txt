@@ -62,14 +62,14 @@ install(
 # projects without needing to install
 export(
     EXPORT test2
-    FILE "${CMAKE_CURRENT_BINARY_DIR}/test2/test2Config.cmake"
+    FILE "${CMAKE_CURRENT_BINARY_DIR}/test2/Test2Config.cmake"
 )
 
-# Generate the install-tree test2Config.cmake for use in other cmake
+# Generate the install-tree Test2Config.cmake for use in other cmake
 # projects after this library has been installed
 install(
     EXPORT test2
-    FILE test2Config.cmake
+    FILE Test2Config.cmake
     DESTINATION lib/cmake/test2
 )
 
