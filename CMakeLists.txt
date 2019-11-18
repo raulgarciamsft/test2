@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 
-project("PR Test2" VERSION 0.0.1 LANGUAGES C)
+project("ElectionGuard SDK" VERSION 0.0.1 LANGUAGES C)
 
 enable_testing()
 
@@ -11,65 +11,82 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-add_library(prtest2
+add_library(test2
     ${PROJECT_SOURCE_DIR}/src/Test2a.c
+    ${PROJECT_SOURCE_DIR}/include/test2/Test2a.h
 )
 
 # Compiler flags
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-    target_compile_options(prtest2 PRIVATE -Wall -Wextra -pedantic -pedantic-errors -Wunreachable-code -Wmissing-field-initializers)
+    target_compile_options(test2 PUBLIC -Werror -Wall -Wextra -pedantic -pedantic-errors -Wunreachable-code -Wmissing-field-initializers -lgmp)
 endif()
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    target_compile_options(prtest2 PRIVATE -Wgnu-empty-initializer)
+    target_compile_options(test2 PUBLIC -Werror --fsanitize=address -Wgnu-empty-initializer)
 endif()
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-    target_compile_options(prtest2 PRIVATE -Wenum-compare)
+    target_compile_options(test2 PUBLIC -Werror -Wenum-compare)
+endif()
+
+# Link gmp library
+find_package(GMP REQUIRED)
+target_link_libraries(test2 ${GMP_LIBRARY})
+
+if (MINGW)
+    # Remove lib prefix
+    set_target_properties(test2 PROPERTIES PREFIX "")
 endif()
 
 # Set the public include directory depending on if the target is being exported
 # or installed
-target_include_directories(prtest2
+target_include_directories(test2
     SYSTEM PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${GMP_INCLUDE_DIR}>
     PRIVATE
-        ${PROJECT_SOURCE_DIR}/src/prtest2
+        ${PROJECT_SOURCE_DIR}/src/test2
 )
 
-# Install the prtest2 library in the default location, and associate
-# prtest2 with the prtest2 export
-install(TARGETS prtest2 EXPORT prtest2)
+# Install the test2 library in the default location, and associate
+# test2 with the test2 export
+install(TARGETS test2 EXPORT test2)
 
 # Install public header files
 install(
-    DIRECTORY ${PROJECT_SOURCE_DIR}/include/prtest2
+    DIRECTORY ${PROJECT_SOURCE_DIR}/include/test2
     TYPE INCLUDE
     FILES_MATCHING PATTERN "*.h*"
 )
 
-# Generate the build-tree prtest2Config.cmake for use in other cmake
+# Generate the build-tree test2Config.cmake for use in other cmake
 # projects without needing to install
 export(
-    EXPORT prtest2
-    FILE "${CMAKE_CURRENT_BINARY_DIR}/prtest2/prtest2Config.cmake"
+    EXPORT test2
+    FILE "${CMAKE_CURRENT_BINARY_DIR}/test2/Test2Config.cmake"
 )
 
-# Generate the install-tree prtest2Config.cmake for use in other cmake
+# Generate the install-tree test2Config.cmake for use in other cmake
 # projects after this library has been installed
 install(
-    EXPORT prtest2
-    FILE prtest2Config.cmake
-    DESTINATION lib/cmake/prtest2
+    EXPORT test2
+    FILE test2Config.cmake
+    DESTINATION lib/cmake/test2
 )
 
 add_subdirectory(docs)
 
 file(MAKE_DIRECTORY  "${CMAKE_CURRENT_BINARY_DIR}/simple_build")
+set(CMAKE_CONFIGURATION_TYPES "Debug" CACHE STRING "" FORCE)
+
 add_test(NAME build_simple
    COMMAND "${CMAKE_COMMAND}"
-      -E env prtest2_DIR=${CMAKE_CURRENT_BINARY_DIR}/prtest2
+      -E env test2_DIR=${CMAKE_CURRENT_BINARY_DIR}/test2
       "${CMAKE_CTEST_COMMAND}"
         --build-and-test "${PROJECT_SOURCE_DIR}/examples/simple" "${CMAKE_CURRENT_BINARY_DIR}/simple_build"
         --build-generator ${CMAKE_GENERATOR}
         --test-command simple
 )
+
+include(CheckIncludeFiles)
+#check_include_files("windows.h" HAVE_BCRYPTGENRANDOM)
+#configure_file(${PROJECT_SOURCE_DIR}/src/test2/random_source.h.in ${PROJECT_SOURCE_DIR}/src/electionguard/random_source.h)
