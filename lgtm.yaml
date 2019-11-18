@@ -3,7 +3,7 @@ queries:
 extraction:
   cpp:
     prepare:    # Customizable step used by all languages.
-      packages:
+      packages: 
         - cmake
     index:    # Customizable step used by all languages.
       build_command:
