@@ -12,8 +12,8 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 add_library(test2
-    ${PROJECT_SOURCE_DIR}/src/test2a.c
-    ${PROJECT_SOURCE_DIR}/include/test2/test2a.h
+    ${PROJECT_SOURCE_DIR}/src/Test2a.c
+    ${PROJECT_SOURCE_DIR}/include/test2/Test2a.h
 )
 
 # Compiler flags
@@ -80,7 +80,7 @@ set(CMAKE_CONFIGURATION_TYPES "Debug" CACHE STRING "" FORCE)
 
 add_test(NAME build_simple
    COMMAND "${CMAKE_COMMAND}"
-      -E env Test2_DIR=${CMAKE_CURRENT_BINARY_DIR}/Test2
+      -E env test2_DIR=${CMAKE_CURRENT_BINARY_DIR}/test2
       "${CMAKE_CTEST_COMMAND}"
         --build-and-test "${PROJECT_SOURCE_DIR}/examples/simple" "${CMAKE_CURRENT_BINARY_DIR}/simple_build"
         --build-generator ${CMAKE_GENERATOR}
