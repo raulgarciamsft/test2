@@ -12,5 +12,5 @@ int test2()
 void test3(char* lpzTest, int cbTest) 
 { 
 	char x[3];
-    memcpy(x, lpzTest, cbTest);
+    // memcpy(x, lpzTest, cbTest);
 }
