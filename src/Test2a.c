@@ -10,6 +10,6 @@ int test2()
 
 void test3(char* lpzTest, int cbTest) 
 { 
-	char[3] x;
+	char x[3];
     memcpy(x, lpzTest, cbTest);
 }
