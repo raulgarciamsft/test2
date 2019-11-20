@@ -14,6 +14,6 @@ void test3(char *lpzTest, int cbTest)
     char x[3];
     memcpy(x, lpzTest, cbTest);
 
-    char y[3];
-    memcpy(x, y, 3);
+    //char y[3];
+    //memcpy(x, y, 3);
 }
